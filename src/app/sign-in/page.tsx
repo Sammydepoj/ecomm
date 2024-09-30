@@ -19,7 +19,7 @@ const SignIn = () => {
   return (
     <div className=" ">
       <Navbar />
-      <div className=" flex justify-center items-center py-5 flex-col w-full gap-7  ">
+      <div className=" flex justify-center items-center py-5 flex-col w-full gap-7 h-[80svh]  ">
         <h3 className=" font-bold sm:text-3xl pt-10 text-xl ">
           Login your account
         </h3>
@@ -44,7 +44,7 @@ const SignIn = () => {
               className=""
             />
           </div>
-          <Link href={"/reset-password"} className=" text-end text-[#0B6A96]">
+          <Link href={"/forgot-password"} className=" text-end text-[#0B6A96]">
             Forgot Password?
           </Link>{" "}
           <CustomButton text="Sign in" variant="primary" type="submit" />

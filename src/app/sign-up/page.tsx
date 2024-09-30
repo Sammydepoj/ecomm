@@ -20,7 +20,7 @@ const SignUp = () => {
   return (
     <div className=" ">
       <Navbar />
-      <div className=" flex justify-center items-center py-5 flex-col w-full gap-5  ">
+      <div className=" flex justify-center items-center py-5 flex-col w-full gap-5 h-[80svh]  ">
         <h3 className=" font-bold sm:text-3xl pt-4 text-xl ">
           Create Account{" "}
         </h3>
