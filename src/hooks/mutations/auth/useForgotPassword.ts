@@ -3,19 +3,18 @@ import { AxiosError, AxiosResponse } from "axios";
 import axiosInstance from "../../../services/axiosApi";
 
 export type ForgotPasswordResponseType = {
-  data: any;
   responseMessage: string;
   responseCode: number;
 };
 
 export type ForgotPasswordRequestType = {
-  email: string;
+  email_address: string;
 };
 
 const forgotPassword = (
   input: ForgotPasswordRequestType
 ): Promise<AxiosResponse<ForgotPasswordResponseType>> => {
-  return axiosInstance.post(`/auth/forgot-password`, input, {});
+  return axiosInstance.post(`authentication/forgot-password`, input, {});
 };
 
 const useForgotPassword = () => {

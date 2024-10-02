@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Encryption } from "@/utils/encryption";
 import { useRouter } from "next/navigation";
 import { useLayoutEffect, useState } from "react";

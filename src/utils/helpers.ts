@@ -2,7 +2,7 @@ import { USER_INFORMATION } from "./constants";
 import { Encryption } from "./encryption";
 
 export const RESPONSE_CODE = {
-  successful: 200,
+  successful: 201,
   badRequest: 400,
   noData: 201,
   internalServerError: 500,

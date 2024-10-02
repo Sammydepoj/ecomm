@@ -1,22 +1,24 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
 import axiosInstance from "../../../services/axiosApi";
 
 export type LoginUpResponseType = {
-  data: any;
-  responseMessage: string;
   responseCode: number;
+  responseMessage: string;
+  is_default_password: boolean;
+  token: string;
 };
 
 export type LoginRequestType = {
-  email: string;
+  email_address: string;
   password: string;
 };
 
 const login = (
   input: LoginRequestType
 ): Promise<AxiosResponse<LoginUpResponseType>> => {
-  return axiosInstance.post(`/auth/login`, input, {});
+  return axiosInstance.post(`authentication/login`, input, {});
 };
 
 const useLogin = () => {

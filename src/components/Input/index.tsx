@@ -65,6 +65,8 @@ export const Input = <T extends FieldValues>({
     if (!showPassword && type === "password") return "password";
     if (type === "tel" || type === "number") return "number";
     if (type === "date") return "date";
+    if (type === "file") return "file";
+
     return type;
   };
 
@@ -72,6 +74,7 @@ export const Input = <T extends FieldValues>({
     if (type === "tel" || type === "number") return "numeric";
     if (type === "email") return "email";
     if (type === "date") return "text";
+
     return "text";
   };
 
@@ -104,7 +107,7 @@ export const Input = <T extends FieldValues>({
           {...field}
           id={`${rest?.id ? rest?.id : rest?.name}`}
           onWheel={numberInputOnWheelPreventChange}
-          value={field.value || ""}
+          value={field.value ?? ""}
           onKeyDown={(evt) =>
             (type === "number" || type === "tell") &&
             ["e", "E", "+", "-"].includes(evt.key) &&

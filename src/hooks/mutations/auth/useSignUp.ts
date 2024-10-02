@@ -1,27 +1,38 @@
+import axiosInstance from "@/services/axiosApi";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
-import axiosInstance from "../../../services/axiosApi";
 
 export type SignUpResponseType = {
-  data: {
-    user: string;
-  };
-  responseMessage: string;
   responseCode: number;
+  responseMessage: string;
+  data: {
+    email_address: string;
+    first_name: string;
+    last_name: string;
+    phone_number: string;
+    home_address: string;
+    profile_image: string;
+    role_type: string;
+    createdAt: string;
+    token: string;
+  };
 };
 
 export type SignupRequestType = {
-  fullname: string;
-  email: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  home_address: string;
+  profile_image: string;
+  email_address: string;
   password: string;
-  confirmPassword: string;
-  DOB: string;
+  role_type: string;
 };
 
 const signup = (
   input: SignupRequestType
 ): Promise<AxiosResponse<SignUpResponseType>> => {
-  return axiosInstance.post(`/auth/register`, input, {});
+  return axiosInstance.post(`authentication/register`, input, {});
 };
 
 const useSignUp = () => {
