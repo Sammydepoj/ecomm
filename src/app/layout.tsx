@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import { Poppins } from "next/font/google";
+import Providers from "./provider";
 
 export const metadata: Metadata = {
   title: "E-Comm",
@@ -22,7 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

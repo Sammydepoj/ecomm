@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Navbar from "@/components/Navbar";
@@ -8,14 +9,39 @@ import { z } from "zod";
 import Link from "next/link";
 import { Input } from "@/components/Input";
 import CustomButton from "@/components/Button";
+import useLogin, { LoginRequestType } from "@/hooks/mutations/auth/useLogin";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 const SigninFormSchema = SigninFormZodSchema();
 type SigninFormInputs = z.infer<typeof SigninFormSchema>;
 
 const SignIn = () => {
+  const router = useRouter();
   const form = useForm<SigninFormInputs>({
     resolver: zodResolver(SigninFormSchema),
     mode: "onBlur",
   });
+  const loginMutation = useLogin();
+
+  const submitHandler = (e: LoginRequestType) => {
+    loginMutation.mutate(e, {
+      onSuccess: (resp) => {
+        if (resp.data.responseCode === 200) {
+          toast.success(resp.data?.responseMessage);
+          router.push("/home");
+        } else {
+          toast.error(resp.data?.responseMessage);
+        }
+      },
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onError: (resp) => {
+        toast.error("Something went wrong");
+      },
+    });
+  };
+  const onSubmit = (data: any) => {
+    submitHandler(data);
+  };
   return (
     <div className=" ">
       <Navbar />
@@ -23,12 +49,15 @@ const SignIn = () => {
         <h3 className=" font-bold sm:text-3xl pt-10 text-xl ">
           Login your account
         </h3>
-        <form className="w-full grid gap-5 max-w-[30rem] md:px-10 px-5 ">
+        <form
+          className="w-full grid gap-5 max-w-[30rem] md:px-10 px-5 "
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
           <div className="flex flex-col w-full justify-center items-center  gap-6  ">
             <Input
               type="email"
-              name="email"
-              id="email"
+              name="email_address"
+              id="email_address"
               label="Email Address"
               placeholder="Enter your email address"
               control={form.control}

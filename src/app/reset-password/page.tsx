@@ -1,21 +1,50 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import CustomButton from "@/components/Button";
 import { Input } from "@/components/Input";
 import Navbar from "@/components/Navbar";
+import useResetPassword, {
+  ResetPasswordRequestType,
+} from "@/hooks/mutations/auth/useResetPassword";
 import { ResetPasswordFormZodSchema } from "@/schemas/ResetPassword";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const ResetPasswordFormSchema = ResetPasswordFormZodSchema();
 
 type ResetPasswordFormInputs = z.infer<typeof ResetPasswordFormSchema>;
+
 const ResetPassword = () => {
+  const router = useRouter();
   const form = useForm<ResetPasswordFormInputs>({
     resolver: zodResolver(ResetPasswordFormSchema),
     mode: "onBlur",
   });
+  const resetPasswordMutation = useResetPassword();
+
+  const submitHandler = (e: ResetPasswordRequestType) => {
+    resetPasswordMutation.mutate(e, {
+      onSuccess: (resp) => {
+        if (resp.data.responseCode === 200) {
+          toast.success(resp.data?.responseMessage);
+          router.push("/sign-in");
+        } else {
+          toast.error(resp.data?.responseMessage);
+        }
+      },
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onError: (resp) => {
+        toast.error("Something went wrong");
+      },
+    });
+  };
+  const onSubmit = (data: any) => {
+    submitHandler(data);
+  };
   return (
     <div>
       <Navbar />
@@ -23,7 +52,10 @@ const ResetPassword = () => {
         <h3 className=" font-bold sm:text-3xl pt-10 text-xl text-center ">
           Create New Password
         </h3>
-        <form className="w-full grid gap-5 max-w-[30rem] md:px-10 px-5 ">
+        <form
+          className="w-full grid gap-5 max-w-[30rem] md:px-10 px-5 "
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
           <div className="flex flex-col w-full justify-center items-center  gap-6  ">
             <Input
               type="email"

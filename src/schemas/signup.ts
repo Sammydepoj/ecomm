@@ -3,14 +3,22 @@ import { z } from "zod";
 export const SignupFormZodSchema = () => {
   return z
     .object({
-      email: z
+      email_address: z
         .string({ required_error: "Email is required" })
         .min(5, { message: "Email is required" })
         .email({ message: "Please enter a valid email address" }),
-      fullname: z
-        .string({ required_error: "Full name is required" })
-        .min(5, { message: "Full name is too short" }),
-      DOB: z.string({ required_error: "Date of Birth is required" }),
+      first_name: z
+        .string({ required_error: "First name is required" })
+        .min(2, { message: "First name is too short" }),
+
+      last_name: z
+        .string({ required_error: "Last name is required" })
+        .min(2, { message: "Last name is too short" }),
+      phone_number: z
+        .string({ required_error: "Phone Number is required" })
+        .min(11, { message: "Phone Number is too short" }),
+      profile_image: z.string({ message: "" }).optional(),
+      home_address: z.string({ message: "Invalid input" }).optional(),
       password: z
         .string({ required_error: "Password is required" })
         .min(8, { message: "Password can not be less than 8 characters" })
