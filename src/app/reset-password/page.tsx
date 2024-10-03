@@ -83,7 +83,12 @@ const ResetPassword = () => {
             />
           </div>
 
-          <CustomButton text="Reset Password" variant="primary" type="submit" />
+          <CustomButton
+            text="Reset Password"
+            variant="primary"
+            type="submit"
+            isLoading={resetPasswordMutation.isPending}
+          />
         </form>
       </div>
     </div>
