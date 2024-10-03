@@ -2,6 +2,7 @@
 import CloseMenuIcon from "@/assets/icons/CloseMenuicon";
 import OpenMenuIcon from "@/assets/icons/OpenMenuIcon";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const Navbar = () => {
@@ -19,9 +20,11 @@ const Navbar = () => {
             : "bg-transparent hidden md:flex-row md:flex md:justify-between"
         }`}
       >
-        <li>Home</li>
+        <Link href={"/home"}>Home</Link>
         <li>Categories</li>
         <li>Contact Us</li>
+
+        
       </ul>
 
       <button

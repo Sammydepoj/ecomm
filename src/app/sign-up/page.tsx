@@ -66,17 +66,16 @@ const SignUp = () => {
   const submitHandler = (e: SignupRequestType) => {
     signupMutation.mutate(e, {
       onSuccess: (resp) => {
-        if (resp.data.responseCode === 201) {
-          toast.success(resp.data?.responseMessage);
-
-          router.push("/sign-in");
-        } else {
+        if (resp.data.responseCode !== 201) {
           toast.error(resp.data?.responseMessage);
+        } else {
+          toast.success(resp.data?.responseMessage);
+          router.push("/sign-in");
         }
       },
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      onError: (resp) => {
-        toast.error("Something went wrong");
+      onError: (data) => {
+        //@ts-ignore
+        toast.error(data?.response?.data?.responseMessage);
       },
     });
   };

@@ -26,16 +26,17 @@ const SignIn = () => {
   const submitHandler = (e: LoginRequestType) => {
     loginMutation.mutate(e, {
       onSuccess: (resp) => {
-        if (resp.data.responseCode === 200) {
+        if (resp.data.responseCode !== 200) {
+          toast.error(resp?.data?.responseMessage);
+        } else {
           toast.success(resp.data?.responseMessage);
           router.push("/home");
-        } else {
-          toast.error(resp.data?.responseMessage);
         }
       },
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      onError: (resp) => {
-        toast.error("Something went wrong");
+      onError: (data) => {
+        //@ts-ignore
+          toast.error(data?.response?.data?.responseMessage);
       },
     });
   };
