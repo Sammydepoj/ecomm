@@ -8,6 +8,7 @@ export type LoginUpResponseType = {
   responseMessage: string;
   is_default_password: boolean;
   token: string;
+  data?: any;
 };
 
 export type LoginRequestType = {
