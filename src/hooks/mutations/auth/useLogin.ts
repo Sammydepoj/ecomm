@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
 import axiosInstance from "../../../services/axiosApi";
 
-export type LoginUpResponseType = {
+export type LoginResponseType = {
   responseCode: number;
   responseMessage: string;
   is_default_password: boolean;
@@ -18,13 +18,13 @@ export type LoginRequestType = {
 
 const login = (
   input: LoginRequestType
-): Promise<AxiosResponse<LoginUpResponseType>> => {
+): Promise<AxiosResponse<LoginResponseType>> => {
   return axiosInstance.post(`authentication/login`, input, {});
 };
 
 const useLogin = () => {
   return useMutation<
-    AxiosResponse<LoginUpResponseType>,
+    AxiosResponse<LoginResponseType>,
     AxiosError,
     LoginRequestType
   >({

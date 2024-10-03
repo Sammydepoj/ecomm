@@ -12,6 +12,7 @@ import CustomButton from "@/components/Button";
 import useLogin, { LoginRequestType } from "@/hooks/mutations/auth/useLogin";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import useGetUserInfo from "@/hooks/queries/userInfo/useGetUserInfo";
 const SigninFormSchema = SigninFormZodSchema();
 type SigninFormInputs = z.infer<typeof SigninFormSchema>;
 
@@ -22,7 +23,7 @@ const SignIn = () => {
     mode: "onBlur",
   });
   const loginMutation = useLogin();
-
+  const userInfo = useGetUserInfo();
   const submitHandler = (e: LoginRequestType) => {
     loginMutation.mutate(e, {
       onSuccess: (resp) => {
@@ -30,6 +31,8 @@ const SignIn = () => {
           toast.error(resp?.data?.responseMessage);
         } else {
           toast.success(resp.data?.responseMessage);
+          console.log(userInfo);
+
           router.push("/home");
         }
       },
