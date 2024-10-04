@@ -69,7 +69,12 @@ const ForgotPassword = () => {
             />
           </div>
 
-          <CustomButton text="Reset Password" variant="primary" type="submit" />
+          <CustomButton
+            text="Reset Password"
+            variant="primary"
+            type="submit"
+            isLoading={forgotPasswordMutation.isPending}
+          />
           <Link
             href={"/sign-in"}
             className="text-[#0B6A96] flex items-center gap-4 justify-center w-full"

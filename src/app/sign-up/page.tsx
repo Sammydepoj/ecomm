@@ -183,7 +183,12 @@ const SignUp = () => {
               control={form.control}
             />
           </div>
-          <CustomButton text="Sign up" variant="primary" type="submit" />
+          <CustomButton
+            text="Sign up"
+            variant="primary"
+            type="submit"
+            isLoading={signupMutation.isPending}
+          />
           <div className=" ">
             Already have an account ?
             <Link href={"/sign-in"} className="text-[#0B6A96]">

@@ -16,7 +16,9 @@ export const SignupFormZodSchema = () => {
         .min(2, { message: "Last name is too short" }),
       phone_number: z
         .string({ required_error: "Phone Number is required" })
-        .min(11, { message: "Phone Number is too short" }),
+        .min(10, { message: "Phone Number is too short" })
+        .max(11, { message: "Phone Number cannot be more then 11 digits" }),
+
       profile_image: z.string({ message: "" }).optional(),
       home_address: z.string({ message: "Invalid input" }).optional(),
       password: z

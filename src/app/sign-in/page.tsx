@@ -13,6 +13,7 @@ import CustomButton from "@/components/Button";
 import useLogin, { LoginRequestType } from "@/hooks/mutations/auth/useLogin";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import useGetUserInfo from "@/hooks/queries/userInfo/useGetUserInfo";
 const SigninFormSchema = SigninFormZodSchema();
 type SigninFormInputs = z.infer<typeof SigninFormSchema>;
 
@@ -23,7 +24,7 @@ const SignIn = () => {
     mode: "onBlur",
   });
   const loginMutation = useLogin();
-
+  const userInfo = useGetUserInfo();
   const submitHandler = (e: LoginRequestType) => {
     loginMutation.mutate(e, {
       onSuccess: (resp) => {
@@ -31,13 +32,15 @@ const SignIn = () => {
           toast.error(resp?.data?.responseMessage);
         } else {
           toast.success(resp.data?.responseMessage);
+          console.log(userInfo);
+
           router.push("/home");
         }
       },
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       onError: (data) => {
         //@ts-ignore
-          toast.error(data?.response?.data?.responseMessage);
+        toast.error(data?.response?.data?.responseMessage);
       },
     });
   };
@@ -78,7 +81,12 @@ const SignIn = () => {
           <Link href={"/forgot-password"} className=" text-end text-[#0B6A96]">
             Forgot Password?
           </Link>{" "}
-          <CustomButton text="Sign in" variant="primary" type="submit" />
+          <CustomButton
+            text="Sign in"
+            variant="primary"
+            type="submit"
+            isLoading={loginMutation.isPending}
+          />
           <div className=" ">
             Don&apos;t have an account ?{" "}
             <Link href={"/sign-up"} className="text-[#0B6A96]">
