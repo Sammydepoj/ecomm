@@ -1,7 +1,6 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import { SearchOutlined } from "@ant-design/icons";
 import CategoriesButton from "@/components/CategoriesButton";
 import Image from "next/image";
 import GoldPhone from "@/assets/images/HomePageImage/gold-removebg-preview 4.svg";
@@ -10,12 +9,12 @@ import GreenPhone from "@/assets/images/HomePageImage/green-removebg-preview 3.s
 import BlackPhone from "@/assets/images/HomePageImage/13-removebg-preview 3.svg";
 import Team from "@/assets/images/HomePageImage/Frame 2336.svg";
 import CustomButton from "@/components/Button";
-import { Rate } from "antd";
 import UserOne from "@/assets/images/HomePageImage/Rectangle 14.svg";
 import UserTwo from "@/assets/images/HomePageImage/Group 80.svg";
 import UserThree from "@/assets/images/HomePageImage/Rectangle 141.svg";
 import ShoppingCart from "@/assets/images/HomePageImage/shopping_cart.svg";
 import Footer from "@/components/Footer";
+import SearchIcon from "@/assets/icons/Searchicon";
 
 const HomePage = () => {
   const newProducts = [
@@ -96,12 +95,8 @@ const HomePage = () => {
             type="search"
             placeholder="What are you searching for?"
           />
-          <span className=" relative right-[2rem]">
-            <SearchOutlined
-              style={{
-                color: "#717171",
-              }}
-            />
+          <span className=" relative right-[4rem]">
+            <SearchIcon />
           </span>
         </div>
 
@@ -220,7 +215,7 @@ const HomePage = () => {
           <div className=" grid mr-6 lg:mr-14 gap-10 md:grid-cols-2 lg:grid-cols-3">
             <div className=" p-7 shadow-xl rounded-xl flex flex-col text-center justify-center items-center gap-8">
               <Image src={UserOne} alt="UserOne" />
-              <Rate defaultValue={4} />
+
               <p className=" font-normal text-xl leading-10">
                 Ever since I discovered this website, shopping online has been
                 easier.
@@ -228,14 +223,14 @@ const HomePage = () => {
             </div>
             <div className=" p-7 shadow-xl rounded-xl flex flex-col text-center justify-center items-center gap-8">
               <Image src={UserTwo} alt="UserOne" />
-              <Rate defaultValue={4} />
+
               <p className=" font-normal text-xl leading-10">
                 Shopping has become less of a chore for me with Price Hub.
               </p>
             </div>
             <div className=" p-7 shadow-xl rounded-xl flex flex-col text-center justify-center items-center gap-8">
               <Image src={UserThree} alt="UserOne" />
-              <Rate defaultValue={4} />
+
               <p className=" font-normal text-xl leading-10">
                 Ever since I discovered this website, shopping online has been
                 easier.
@@ -274,7 +269,6 @@ const HomePage = () => {
 
         {/* Footer Section */}
         <Footer />
-
       </div>
     </div>
   );
