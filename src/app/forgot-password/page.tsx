@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client";
 import BackArrowIcon from "@/assets/icons/BackArrowicon";
 import CustomButton from "@/components/Button";
@@ -37,7 +38,7 @@ const ForgotPassword = () => {
         }
       },
       onError: (data) => {
-        //@ts-ignore
+        //@ts-expect-error
         toast.error(data?.response?.data?.responseMessage);
       },
     });

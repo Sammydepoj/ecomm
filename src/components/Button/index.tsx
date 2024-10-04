@@ -10,6 +10,7 @@ type Props = {
   type: "button" | "reset" | "submit" | undefined;
   disabled?: boolean;
   isLoading?: boolean;
+  fullWidth?: boolean;
 };
 const CustomButton = ({
   onClick,
@@ -18,6 +19,7 @@ const CustomButton = ({
   type,
   disabled,
   isLoading,
+  fullWidth = true,
 }: Props) => {
   return (
     <span>
@@ -26,7 +28,8 @@ const CustomButton = ({
         className={`${variant === "secondary" && "bg-[#EBEDEE] text-black"} ${
           variant === "primary" &&
           "bg-[#C96E2C] text-white disabled:bg-[#c96d2cba]"
-        } py-[10px] px-4 rounded-xl text-base whitespace-nowrap w-full disabled:cursor-not-allowed`}
+        } py-[14px] px-4 rounded-xl text-base whitespace-nowrap ${
+          fullWidth ? "w-full" : "w-[283px]"} disabled:cursor-not-allowed`}
         type={type}
         isDisabled={disabled}
         isLoading={isLoading}
