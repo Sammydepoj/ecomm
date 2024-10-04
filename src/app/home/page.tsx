@@ -15,8 +15,11 @@ import UserThree from "@/assets/images/HomePageImage/Rectangle 141.svg";
 import ShoppingCart from "@/assets/images/HomePageImage/shopping_cart.svg";
 import Footer from "@/components/Footer";
 import SearchIcon from "@/assets/icons/Searchicon";
+// import useGetCategories from "@/hooks/queries/products/useGetCategories";
 
 const HomePage = () => {
+  // const categories = useGetCategories(1,10)
+
   const newProducts = [
     {
       id: 1,

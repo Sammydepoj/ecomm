@@ -13,7 +13,11 @@ import CustomButton from "@/components/Button";
 import useLogin, { LoginRequestType } from "@/hooks/mutations/auth/useLogin";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import useGetUserInfo from "@/hooks/queries/userInfo/useGetUserInfo";
+import { getUserInfo } from "@/hooks/queries/userInfo/useGetUserInfo";
+import { Encryption } from "@/utils/encryption";
+import { USER_INFORMATION } from "@/utils/constants";
+import { setAccessCookie } from "@/utils/storage";
+import { storeAndEncryptDataToCookie } from "@/utils/auth";
 const SigninFormSchema = SigninFormZodSchema();
 type SigninFormInputs = z.infer<typeof SigninFormSchema>;
 
@@ -24,16 +28,34 @@ const SignIn = () => {
     mode: "onBlur",
   });
   const loginMutation = useLogin();
-  const userInfo = useGetUserInfo();
+
   const submitHandler = (e: LoginRequestType) => {
     loginMutation.mutate(e, {
-      onSuccess: (resp) => {
+      onSuccess: async (resp) => {
         if (resp.data.responseCode !== 200) {
           toast.error(resp?.data?.responseMessage);
         } else {
           toast.success(resp.data?.responseMessage);
-          console.log(userInfo);
+          sessionStorage.setItem(
+            process.env.NEXT_PUBLIC_TOKEN as string,
+            Encryption.encrypt(resp?.data?.token)
+          );
 
+          setAccessCookie(resp?.data?.token);
+
+          try {
+            const userInfoResponse = await getUserInfo(resp?.data?.token);
+            sessionStorage.setItem(
+              USER_INFORMATION,
+              Encryption.encrypt(userInfoResponse?.data?.data)
+            );
+            storeAndEncryptDataToCookie(
+              USER_INFORMATION,
+              userInfoResponse?.data?.data
+            );
+          } catch (error) {
+            console.error("Failed to fetch user info:", error);
+          }
           router.push("/home");
         }
       },
@@ -44,6 +66,7 @@ const SignIn = () => {
       },
     });
   };
+
   const onSubmit = (data: any) => {
     submitHandler(data);
   };

@@ -12,6 +12,7 @@ export type UserinfoResponseType = {
     email_address: string;
     phone_number: string;
     home_address: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     profile_image: any;
     is_approved: boolean;
     is_default_password: boolean;
@@ -21,14 +22,21 @@ export type UserinfoResponseType = {
   };
 };
 
-const getUserInfo = async (): Promise<AxiosResponse<UserinfoResponseType>> => {
-  return axiosInstance.get(`authentication/get-user-info`);
+export const getUserInfo = async (
+  token: string
+): Promise<AxiosResponse<UserinfoResponseType>> => {
+  const config = {
+    headers: {
+      Authorization: `${token}`,
+    },
+  };
+  return axiosInstance.get(`authentication/get-user-info`, config);
 };
 export const QUERY_KEY_GET_USER_INFO = "Get user info";
-const useGetUserInfo = () => {
+const useGetUserInfo = (token: string) => {
   const queryKey = [QUERY_KEY_GET_USER_INFO];
   const queryFn = async () => {
-    return await getUserInfo();
+    return await getUserInfo(token);
   };
   return useQuery({ queryKey, queryFn });
 };
